@@ -1,5 +1,5 @@
 from flask import Blueprint
-from flask import Request
+from flask import request
 import archiveItems
 import random
 
@@ -16,7 +16,7 @@ def getRandomNumber():
 def getAuthorName():
     return "<h1>Michal Wisniewski</h1>"
 
-@endpoints.route('/get-from-query')
+@endpoints.route('/get-from-query', methods=['GET'])
 def getFromQuery():
-    query = Request.args.get('query')
+    query = request.args.get('query')
     return f'{query}'
