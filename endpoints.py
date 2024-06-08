@@ -1,12 +1,22 @@
 from flask import Blueprint
+from flask import Request
+import archiveItems
 import random
 
 endpoints = Blueprint('endpoints', __name__)
 
 @endpoints.route('/get-item')
 def getRandomNumber():
-    return f"{random.random()}"
+    item = random.random()
+    archiveItems.writeItem(item)
+
+    return f'{item}'
 
 @endpoints.route('/get-author-name')
 def getAuthorName():
     return "<h1>Michal Wisniewski</h1>"
+
+@endpoints.route('/get-from-query')
+def getFromQuery():
+    query = Request.args.get('query')
+    return f'{query}'
