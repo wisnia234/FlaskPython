@@ -1,0 +1,4 @@
+runtime: python312
+
+env_variable:
+  EnvNameSample: "GcpAppEngineTask"
