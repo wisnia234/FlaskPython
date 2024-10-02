@@ -6,10 +6,14 @@ import os
 
 endpoints = Blueprint('endpoints', __name__)
 
+@endpoints.route('/')
+def firstPage():
+    return 'Welcome !'
+
 @endpoints.route('/get-item')
 def getRandomNumber():
     item = random.random()
-    archiveItems.writeItem(item)
+    #archiveItems.writeItem(item)
 
     return f'{item}'
 
@@ -25,6 +29,10 @@ def getFromQuery():
 @endpoints.route('/get-even-number', methods=['GET'])
 def getEvenNumber():
     return f'{random.randrange(0, 41) * 2}, EnvNameSample value: {os.getenv('EnvNameSample')}'
+
+@endpoints.route('/get-odd-number', methods=['GET'])
+def getOddNumber():
+    return f'{random.randrange(1, 41, 2) * 2.5 }, EnvNameSample value: {os.getenv('EnvNameSample')}'
 
 @endpoints.route('/get-env-value', methods=['GET'])
 def getEnvVariable():
