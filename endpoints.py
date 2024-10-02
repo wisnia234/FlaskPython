@@ -2,6 +2,7 @@ from flask import Blueprint
 from flask import request
 import archiveItems
 import random
+import os
 
 endpoints = Blueprint('endpoints', __name__)
 
@@ -20,3 +21,11 @@ def getAuthorName():
 def getFromQuery():
     query = request.args.get('query')
     return f'{query}'
+
+@endpoints.route('/get-even-number', methods=['GET'])
+def getEvenNumber():
+    return f'{random.randrange(0, 41) * 2}, EnvNameSample value: {os.getenv('EnvNameSample')}'
+
+@endpoints.route('/get-env-value', methods=['GET'])
+def getEnvVariable():
+    return f'{os.getenv('EnvNameSample')}'
