@@ -1,8 +1,11 @@
 from flask import Blueprint
 from flask import request
 import archiveItems
+import bigQueryUploader
 import random
 import os
+from timeit import default_timer as timer
+from datetime import timedelta
 
 endpoints = Blueprint('endpoints', __name__)
 
@@ -12,7 +15,10 @@ def firstPage():
 
 @endpoints.route('/get-item')
 def getRandomNumber():
-    item = random.random()
+    start = timer()
+    item = random.random() 
+    end = timer()
+    bigQueryUploader.logDataToBigQuery(f'{timedelta(seconds=end-start)}', item)
     #archiveItems.writeItem(item)
 
     return f'{item}'
